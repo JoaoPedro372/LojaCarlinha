@@ -15,6 +15,7 @@ export function Home() {
             />
             <VStack pl={"$2"} pr={"$24"}>
                 <LabelProduct />
+                <LabelProduct />
             </VStack>
             
         </VStack>
