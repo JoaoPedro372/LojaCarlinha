@@ -1,7 +1,32 @@
-import { Center, HStack, Text, VStack } from "@gluestack-ui/themed";
-import { Logo } from "../../components/Logo";
+import { Center, FlatList, HStack, Text, VStack } from "@gluestack-ui/themed";
+import { Logo } from "../components/Logo";
 import logoImg from "../../assets/logoloja.png"
-import { LabelProduct } from "../../components/LabelProduct";
+import { LabelProduct } from "../components/LabelProduct";
+
+
+const products = [
+    { name: 'empada', price: '10,00' },
+    { name: 'coxinha', price: '8,00' },
+    { name: 'pastel', price: '12,00' },
+    { name: 'empada', price: '10,00' },
+    { name: 'coxinha', price: '8,00' },
+    { name: 'pastel', price: '12,00' },
+    { name: 'empada', price: '10,00' },
+    { name: 'coxinha', price: '8,00' },
+    { name: 'pastel', price: '12,00' },
+    { name: 'empada', price: '10,00' },
+    { name: 'coxinha', price: '8,00' },
+    { name: 'pastel', price: '12,00' },
+    { name: 'empada', price: '10,00' },
+    { name: 'coxinha', price: '8,00' },
+    { name: 'pastel', price: '12,00' },
+    { name: 'empada', price: '10,00' },
+    { name: 'coxinha', price: '8,00' },
+    { name: 'pastel', price: '12,00' },
+    { name: 'empada', price: '10,00' },
+    { name: 'coxinha', price: '8,00' },
+    { name: 'pastel', price: '12,00' },
+  ];
 
 export function Home() {
     return(
@@ -13,9 +38,12 @@ export function Home() {
                 h="$40"
                 mb={"$5"}
             />
-            <VStack pl={"$2"} pr={"$24"}>
-                <LabelProduct />
-                <LabelProduct />
+            <VStack pl={"$2"} pr={"$2"} maxHeight={"50%"}>
+                <FlatList 
+                    data={products}
+                    keyExtractor={(item, index) => index.toString()}
+                    renderItem={({ item }) => <LabelProduct name={item.name} price={item.price}/>}
+                />
             </VStack>
             
         </VStack>
