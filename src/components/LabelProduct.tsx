@@ -4,7 +4,7 @@ import { ButtonRemove } from "./ButtonRemove";
 
 export function LabelProduct({name, price}){
     return(
-        <HStack mb={"$4"} maxWidth={"100%"}>
+        <HStack mb={"$4"} maxWidth={"100%"} mr={"10%"}>
             <Box 
                 bg="$red100" 
                 h={"$12"}

@@ -34,17 +34,23 @@ export function Home() {
             <Logo 
                 source={logoImg}
                 alt="nada nao"
-                w="$40"
-                h="$40"
+                w="$32"
+                h="$32"
                 mb={"$5"}
             />
-            <VStack pl={"$2"} pr={"$2"} maxHeight={"50%"}>
+            <VStack pl={"$2"} pr={"$2"} maxHeight={"43%"}>
                 <FlatList 
                     data={products}
                     keyExtractor={(item, index) => index.toString()}
                     renderItem={({ item }) => <LabelProduct name={item.name} price={item.price}/>}
                 />
             </VStack>
+
+            <HStack flex={1} w={"$full"} h={"100%"} p={"$2"}>
+                <VStack bg="$red100" w={"72%"} h={"$full"} rounded={"$2xl"}>
+                
+                </VStack>
+            </HStack>
             
         </VStack>
             
