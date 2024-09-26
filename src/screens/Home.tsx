@@ -1,4 +1,4 @@
-import { Center, FlatList, HStack, Text, VStack } from "@gluestack-ui/themed";
+import { Button, Center, FlatList, HStack, Text, VStack } from "@gluestack-ui/themed";
 import { Logo } from "../components/Logo";
 import logoImg from "../../assets/logoloja.png"
 import { LabelProduct } from "../components/LabelProduct";
@@ -46,9 +46,14 @@ export function Home() {
                 />
             </VStack>
 
-            <HStack flex={1} w={"$full"} h={"100%"} p={"$2"}>
-                <VStack bg="$red100" w={"72%"} h={"$full"} rounded={"$2xl"}>
+            <HStack flex={1} w={"$full"} h={"100%"} p={"$2"} pr={"$2"}>
+                <VStack bg="$red100" w={"72%"} h={"$full"} rounded={"$2xl"} mr={"$2"}>
                 
+                </VStack>
+                <VStack  w={"26%"} h={"$full"} justifyContent="space-between">
+                    <Button w={"$full"} h={"$16"} bgColor="$darkBlue800"/>
+                    <Button w={"$full"} h={"$16"} action="positive"/>
+                    <Button w={"$full"} h={"$16"} bgColor="$red700"/>
                 </VStack>
             </HStack>
             
