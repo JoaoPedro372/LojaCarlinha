@@ -4,13 +4,14 @@ import { useFonts } from 'expo-font';
 import { Roboto_400Regular, Roboto_700Bold } from '@expo-google-fonts/roboto';
 import { Home } from './src/screens/Home';
 import { Loading } from './src/components/Loading';
+import { Report } from './src/screens/Report';
 
 export default function App() {
   const [fontsLoaded] = useFonts({Roboto_400Regular, Roboto_700Bold})
   return (
     <GluestackUIProvider config={config}>
       
-      {fontsLoaded ? <Home/> : <Loading/>}
+      {fontsLoaded ? <Report/> : <Loading/>}
 
     </GluestackUIProvider>
   );

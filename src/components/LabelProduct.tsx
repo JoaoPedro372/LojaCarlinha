@@ -2,11 +2,16 @@ import { Box, HStack, Text } from "@gluestack-ui/themed";
 import { ButtonAdd } from "./ButtonAdd";
 import { ButtonRemove } from "./ButtonRemove";
 
-export function LabelProduct({name, price}){
+
+type Props = {
+    name: string,
+    price: string
+}
+export function LabelProduct({name,price, ...rest}: Props){
     return(
-        <HStack mb={"$4"} maxWidth={"100%"} mr={"10%"}>
+        <HStack mb={"$4"} maxWidth={"95%"} >
             <Box 
-                bg="$red100" 
+                bg="$white" 
                 h={"$12"}
                 w={"69%"}
                 alignItems="center" justifyContent="center"
@@ -15,8 +20,8 @@ export function LabelProduct({name, price}){
                 p={"$2"}
             >
                 <HStack  width={"$full"} justifyContent="space-between" alignItems="center">
-                    <Text fontWeight={"bold"} textTransform="uppercase" flex={1}>{name}</Text>
-                    <Text fontWeight={"bold"} >{price}</Text>
+                    <Text fontWeight={"bold"} textTransform="uppercase" flex={1} color="$black">{name}</Text>
+                    <Text fontWeight={"bold"} color="$black">{price}</Text>
                 </HStack>
             </Box>
             <HStack space={"md"}>
