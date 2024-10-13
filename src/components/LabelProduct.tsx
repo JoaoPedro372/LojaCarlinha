@@ -9,7 +9,7 @@ type Props = {
 }
 export function LabelProduct({name,price, ...rest}: Props){
     return(
-        <HStack mb={"$4"} maxWidth={"95%"} >
+        <HStack mb={"$4"} maxWidth={"100%"} pr={'$6%'}>
             <Box 
                 bg="$white" 
                 h={"$12"}

@@ -35,7 +35,7 @@ export function Report() {
             <HStack>
                 <Heading color="white">Relatório</Heading>
             </HStack>
-            <Button onPress={showStartDatePicker} w={'$60%'} bg={'$warmGray900'} mb={'$2'} mt={'$12'}>
+            <Button onPress={showStartDatePicker} w={'$60%'} bg={'$warmGray900'} mb={'$2'} mt={'$5'}>
                 <ButtonText color="white">Escolher Data Inicial</ButtonText>
             </Button>
             {showStartPicker && (
@@ -63,7 +63,7 @@ export function Report() {
                 />
             )}
 
-            <Text color="white" fontWeight={'bold'} fontSize={'$sm'} mb={'$12'}>
+            <Text color="white" fontWeight={'bold'} fontSize={'$sm'} mb={'$5'}>
                 Data Final: {endDate.toLocaleDateString()}
             </Text>
 
