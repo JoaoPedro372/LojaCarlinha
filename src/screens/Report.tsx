@@ -1,6 +1,24 @@
-import { Text, VStack, HStack, Button, ButtonText, Heading } from "@gluestack-ui/themed";
+import { Text, VStack, HStack, Button, ButtonText, Heading, View, FlatList } from "@gluestack-ui/themed";
 import React, { useState } from 'react';
 import DateTimePicker from '@react-native-community/datetimepicker';
+import { LabelProduct } from "../components/LabelProduct";
+import { LabelResume } from "../components/LabelResume";
+
+const Test = [
+    {product: 'torta de frango', qtde: '3', price: '10,00'},
+    {product: 'pastel', qtde: '2', price: '12,00'},
+    {product: 'torta de frango', qtde: '3', price: '10,00'},
+    {product: 'coxinha', qtde: '2', price: '16,00'},
+    {product: 'empada', qtde: '3', price: '10,00'},
+    {product: 'coca cola', qtde: '2', price: '12,00'},
+    {product: 'pão de batata', qtde: '3', price: '10,00'},
+    {product: 'pizza', qtde: '2', price: '12,00'},
+    {product: 'bolo de pote', qtde: '2', price: '12,00'},
+    {product: 'torta de frango', qtde: '3', price: '10,00'},
+    {product: 'empada', qtde: '2', price: '12,00'},
+    {product: 'torta de frango', qtde: '3', price: '10,00'},
+    {product: 'coxinha', qtde: '2', price: '10,00'},
+  ]
 
 
 export function Report() {
@@ -83,27 +101,50 @@ export function Report() {
                         </Heading>
                     </HStack>
                     
-                    <HStack justifyContent="space-between">
-                        <Text>Torta de frango</Text>
-                        <Text>3</Text>
-                        <Text>R$30,00</Text>
+                    <FlatList 
+                            data={Test}
+                            keyExtractor={(item, index) => index.toString()}
+                            renderItem={({ item }) => <LabelResume product={item.product} qtde={item.qtde} price={item.price}/>}
+                    />
+
+                    <HStack justifyContent="space-between" alignItems="flex-end" mt={"auto"} pt={"$2"} borderTopWidth={1}>
+                        <Heading>Total</Heading>
+                        <Text>R$128,00</Text>
                     </HStack>
+
                 </VStack>
             </HStack>
 
-            <HStack  justifyContent="space-between" gap={"$10"} p={"$4"} pt={'$0'}>
-                <Button w={"$25%"} h={"$16"} bg="$success500" pl={0} pr={0}>
-                    <ButtonText fontSize={"$sm"} >DINHEIRO</ButtonText>
-                    <ButtonText fontSize={"$sm"} >10</ButtonText>
-                </Button>
+            <HStack  justifyContent="space-between" gap={"$20"} p={"$4"} pt={'$0'}>
+                <View alignItems="center">
+                    <Heading color="white">
+                        Dinheiro
+                    </Heading>
+                    
+                    <View h={1} w={"100%"} bgColor="white" my={10} />
 
-                <Button w={"$25%"} h={"$16"} bg="$primary500" pl={0} pr={0}>
-                    <ButtonText fontSize={"$sm"}>PIX</ButtonText>
-                </Button>
+                    <Text color="white">R$10</Text>
+                </View>
 
-                <Button w={"$25%"} h={"$16"} bg="$black" pl={0} pr={0}>
-                    <ButtonText fontSize={"$sm"}>CARTÃO</ButtonText>
-                </Button>
+                <View alignItems="center">
+                    <Heading color="white">
+                        Pix
+                    </Heading>
+
+                    <View h={1} w={"100%"} bgColor="white" my={10} />
+                    
+                    <Text color="white">R$20</Text>
+                </View>
+
+                <View alignItems="center">
+                    <Heading color="white">
+                        Cartão
+                    </Heading>
+
+                    <View h={1} w={"100%"} bgColor="white" my={10} />
+                    
+                    <Text color="white">R$26</Text>
+                </View>
             </HStack>
         </VStack>
     );
