@@ -8,16 +8,7 @@ const Test = [
     {product: 'torta de frango', qtde: '3', price: '10,00'},
     {product: 'pastel', qtde: '2', price: '12,00'},
     {product: 'torta de frango', qtde: '3', price: '10,00'},
-    {product: 'coxinha', qtde: '2', price: '16,00'},
-    {product: 'empada', qtde: '3', price: '10,00'},
-    {product: 'coca cola', qtde: '2', price: '12,00'},
-    {product: 'pão de batata', qtde: '3', price: '10,00'},
-    {product: 'pizza', qtde: '2', price: '12,00'},
-    {product: 'bolo de pote', qtde: '2', price: '12,00'},
-    {product: 'torta de frango', qtde: '3', price: '10,00'},
-    {product: 'empada', qtde: '2', price: '12,00'},
-    {product: 'torta de frango', qtde: '3', price: '10,00'},
-    {product: 'coxinha', qtde: '2', price: '10,00'},
+    
   ]
 
 

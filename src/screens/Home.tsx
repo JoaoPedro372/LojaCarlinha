@@ -37,18 +37,7 @@ const products = [
 
   const Resume = [
     {product: 'torta de frango', qtde: '3', price: '10,00'},
-    {product: 'torta de costas', qtde: '2', price: '12,00'},
-    {product: 'torta de frango', qtde: '3', price: '10,00'},
-    {product: 'torta de costas', qtde: '2', price: '12,00'},
-    {product: 'torta de frango', qtde: '3', price: '10,00'},
-    {product: 'torta de costas', qtde: '2', price: '12,00'},
-    {product: 'torta de frango', qtde: '3', price: '10,00'},
-    {product: 'torta de costas', qtde: '2', price: '12,00'},
-    {product: 'torta de costas', qtde: '2', price: '12,00'},
-    {product: 'torta de frango', qtde: '3', price: '10,00'},
-    {product: 'torta de costas', qtde: '2', price: '12,00'},
-    {product: 'torta de frango', qtde: '3', price: '10,00'},
-    {product: 'torta de costas', qtde: '2', price: '12,00'},
+    
   ]
 
   
