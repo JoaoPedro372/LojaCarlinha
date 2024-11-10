@@ -7,33 +7,10 @@ import { LabelResume } from "../components/LabelResume";
 import { useNavigation } from "@react-navigation/native";
 import { RoutesProps } from "../routes/AppRoutes"; 
 import { IconToReport } from "../components/IconToReport";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ModalPayment } from "../components/ModalPayment";
 
-
-const products = [
-    { name: 'empada', price: '10,00' },
-    { name: 'coxinha', price: '8,00' },
-    { name: 'pastel', price: '12,00' },
-    { name: 'empada', price: '10,00' },
-    { name: 'coxinha', price: '8,00' },
-    { name: 'pastel', price: '12,00' },
-    { name: 'empada', price: '10,00' },
-    { name: 'coxinha', price: '8,00' },
-    { name: 'pastel', price: '12,00' },
-    { name: 'empada', price: '10,00' },
-    { name: 'coxinha', price: '8,00' },
-    { name: 'pastel', price: '12,00' },
-    { name: 'empada', price: '10,00' },
-    { name: 'coxinha', price: '8,00' },
-    { name: 'pastel', price: '12,00' },
-    { name: 'empada', price: '10,00' },
-    { name: 'coxinha', price: '8,00' },
-    { name: 'pastel', price: '12,00' },
-    { name: 'empada', price: '10,00' },
-    { name: 'coxinha', price: '8,00' },
-    { name: 'pastel', price: '12,00' },
-  ];
+import axios from 'axios';
 
   const Resume = [
     {product: 'torta de frango', qtde: '3', price: '10,00'},
@@ -46,8 +23,18 @@ export function Home() {
 
     const [showModal, setShowModal] = useState(false);
     const [paymentName, setPaymentName] = useState('');
+    const [produtos, setProdutos] = useState([]);
 
     const navigator = useNavigation<RoutesProps>()
+
+    useEffect(() => {
+        axios.get('http://192.168.15.16:5000/produtos') // rodar cd apiLoja || rodar comando node index.js || inserir IP da sua máquina || antes de tudooooo, rodar npm install
+            .then(response => {
+                setProdutos(response.data);
+                console.log('log do response', response.data); // Verifica o conteúdo retornado
+            })
+            .catch(error => console.error(error));
+    }, []);
 
     function handleReportScreen() {
         return (
@@ -60,6 +47,7 @@ export function Home() {
             setShowModal(true),
             setPaymentName(paymentType)
         )
+
     };
 
     // function handleOpenModalPix(paymentType: string) {
@@ -100,8 +88,8 @@ export function Home() {
             
             <VStack pl={"$2"} pr={"$2"} maxHeight={"30%"} mb={"$5"}>
                 <FlatList 
-                    data={products}
-                    keyExtractor={(item, index) => index.toString()}
+                    data={produtos} // Remova os colchetes extras
+                    keyExtractor={(item) => item._id.toString()}
                     renderItem={({ item }) => <LabelProduct name={item.name} price={item.price}/>}
                 />
             </VStack>
