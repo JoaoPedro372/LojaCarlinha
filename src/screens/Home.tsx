@@ -18,17 +18,19 @@ import axios from 'axios';
   ]
 
   
-
 export function Home() {
 
     const [showModal, setShowModal] = useState(false);
     const [paymentName, setPaymentName] = useState('');
     const [produtos, setProdutos] = useState([]);
+    const [vendas, setVendas] = useState([]);
+    
+
 
     const navigator = useNavigation<RoutesProps>()
 
     useEffect(() => {
-        axios.get('http://192.168.15.16:5000/produtos') // rodar cd apiLoja || rodar comando node index.js || inserir IP da sua máquina || antes de tudooooo, rodar npm install
+        axios.get('http://192.168.15.169:5000/produtos') // rodar cd apiLoja || rodar comando node index.js || inserir IP da sua máquina || antes de tudooooo, rodar npm install
             .then(response => {
                 setProdutos(response.data);
                 console.log('log do response', response.data); // Verifica o conteúdo retornado
@@ -36,6 +38,16 @@ export function Home() {
             .catch(error => console.error(error));
     }, []);
 
+    useEffect(() => {
+        axios.get('http://192.168.15.169:5000/vendas') // rodar cd apiLoja || rodar comando node index.js || inserir IP da sua máquina || antes de tudooooo, rodar npm install
+            .then(response => {
+                setVendas(response.data);
+                console.log('log do response', response.data); // Verifica o conteúdo retornado
+            })
+            .catch(error => console.error(error));
+    }, []);
+
+    
     function handleReportScreen() {
         return (
             navigator.navigate('Report')
