@@ -1,4 +1,4 @@
-##Tecnologias utilizadas:
+## Tecnologias utilizadas:
 
 React Native
 Expo
@@ -9,15 +9,15 @@ Node
 Projeto rodando no node 18
   nvm use 18
 
-##Ao clonar reposítório, para rodar:
+## Ao clonar reposítório, para rodar:
 
 Iniciar rodando comando -> npm install
 Verificar dependências necessárias
 
-##Rodar o projeto:
+## Rodar o projeto:
    npx expo start
 
-##Rodar o server:
+## Rodar o server:
    cd apiLoja 
    node index.js
 
