@@ -30,7 +30,7 @@ export function Home() {
     const navigator = useNavigation<RoutesProps>()
 
     useEffect(() => {
-        axios.get('http://192.168.15.12:5000/produtos') 
+        axios.get('http://192.168.15.169:5000/produtos') 
             .then(response => {
                 console.log('Resposta da API:', response.data); // Exibindo a resposta para verificar
     
@@ -58,7 +58,7 @@ export function Home() {
                 paymentType: paymentType, // Agora, o tipo de pagamento é passado aqui
             };
     
-            axios.post('http://192.168.15.12:5000/vendas', saleData)
+            axios.post('http://192.168.15.169:5000/vendas', saleData)
                 .then(response => {
                     console.log('Venda salva com sucesso:', response.data);
                     setVendas([]); // Limpa a lista de vendas após salvar

@@ -1,15 +1,9 @@
 import { Text, VStack, HStack, Button, ButtonText, Heading, View, FlatList } from "@gluestack-ui/themed";
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import DateTimePicker from '@react-native-community/datetimepicker';
-import { LabelProduct } from "../components/LabelProduct";
+import axios from 'axios';  // Importando o Axios
+import { LabelResumeReport } from "../components/LabelResumeReport";
 import { LabelResume } from "../components/LabelResume";
-
-const Test = [
-    {product: 'torta de frango', qtde: '3', price: '10,00'},
-    {product: 'pastel', qtde: '2', price: '12,00'},
-    {product: 'torta de frango', qtde: '3', price: '10,00'},
-    
-  ]
 
 
 export function Report() {
@@ -17,6 +11,8 @@ export function Report() {
     const [endDate, setEndDate] = useState(new Date());
     const [showStartPicker, setShowStartPicker] = useState(false);
     const [showEndPicker, setShowEndPicker] = useState(false);
+    const [salesData, setSalesData] = useState([]);  // Estado para armazenar os dados das vendas
+    const [total, setTotal] = useState(0);  // Estado para armazenar o total
 
     const onChangeStartDate = (event, selectedDate) => {
         const currentDate = selectedDate || startDate;
@@ -38,6 +34,37 @@ export function Report() {
         setShowEndPicker(true);
     };
 
+    // Função para buscar os dados de vendas
+    const fetchSalesData = async () => {
+        try {
+            const response = await axios.get('http://192.168.15.169:5000/vendas', {
+                params: {
+                    startDate: startDate.toISOString(),
+                    endDate: endDate.toISOString(),
+                },
+            });
+            setSalesData(response.data);  // Atualiza o estado com os dados recebidos da API
+            calculateTotal(response.data);  // Calcula o total
+        } catch (error) {
+            console.error("Erro ao buscar dados de vendas:", error);
+        }
+    };
+
+    // Função para calcular o total das vendas
+    const calculateTotal = (data) => {
+        const totalAmount = data.reduce((acc, item) => {
+            // Como amountPaid é um número no seu banco, basta usar ele diretamente
+            const amountPaid = item.amountPaid || 0;  // Se não tiver amountPaid, considera 0
+            const quantity = parseInt(item.qtde, 10) || 0;  // Se a quantidade não for válida, considera 0
+            return acc + (amountPaid * quantity);
+        }, 0);
+        setTotal(totalAmount.toFixed(2));  // Atualiza o total com duas casas decimais
+    };
+
+    // Efeito para carregar os dados sempre que as datas forem alteradas
+    useEffect(() => {
+        fetchSalesData();
+    }, [startDate, endDate]);  // Recarrega os dados ao alterar as datas
 
     return (
         <VStack flex={1} alignItems="center" bg="$warmGray700" pt={'$10'}>
@@ -79,63 +106,36 @@ export function Report() {
             <HStack flex={1} w={"$full"} h={"100%"} p={"$2"} pr={"$2"} >
                 <VStack bg="$white" w={"100%"} h={"$90%"} rounded={"$2xl"} mr={"$2"} p={"$2"}>
                     <HStack justifyContent="space-between" mb={"$2"}>
-                        <Heading>
-                            PRODUTO
-                        </Heading>
-
-                        <Heading>
-                            QUANTIDADE
-                        </Heading>
-
-                        <Heading>
-                            VALOR
-                        </Heading>
+                        <Heading>PRODUTO</Heading>
+                        <Heading>QUANTIDADE</Heading>
+                        <Heading>VALOR</Heading>
                     </HStack>
-                    
+
                     <FlatList 
-                            data={Test}
-                            keyExtractor={(item, index) => index.toString()}
-                            renderItem={({ item }) => <LabelResume product={item.product} qtde={item.qtde} price={item.price}/>}
+                        data={salesData}
+                        keyExtractor={(item, index) => index.toString()}
+                        renderItem={({ item }) => {
+                            // Garantir que o preço esteja sendo exibido corretamente
+                            const formattedPrice = item.amountPaid ? item.amountPaid.toFixed(2) : "0.00";  // Exibe o valor diretamente
+                            return (
+                                <LabelResumeReport
+                                    product={item.product || item.productName}  // Verifique se o nome do produto é 'product' ou 'productName'
+                                    qtde={item.qtde}
+                                    amountPaid={formattedPrice}  // Exibindo o preço formatado
+                                />
+                            );
+                        }}
                     />
 
                     <HStack justifyContent="space-between" alignItems="flex-end" mt={"auto"} pt={"$2"} borderTopWidth={1}>
                         <Heading>Total</Heading>
-                        <Text>R$128,00</Text>
+                        <Text>R${total}</Text>
                     </HStack>
-
                 </VStack>
             </HStack>
 
-            <HStack  justifyContent="space-between" gap={"$20"} p={"$4"} pt={'$0'}>
-                <View alignItems="center">
-                    <Heading color="white">
-                        Dinheiro
-                    </Heading>
-                    
-                    <View h={1} w={"100%"} bgColor="white" my={10} />
-
-                    <Text color="white">R$10</Text>
-                </View>
-
-                <View alignItems="center">
-                    <Heading color="white">
-                        Pix
-                    </Heading>
-
-                    <View h={1} w={"100%"} bgColor="white" my={10} />
-                    
-                    <Text color="white">R$20</Text>
-                </View>
-
-                <View alignItems="center">
-                    <Heading color="white">
-                        Cartão
-                    </Heading>
-
-                    <View h={1} w={"100%"} bgColor="white" my={10} />
-                    
-                    <Text color="white">R$26</Text>
-                </View>
+            <HStack justifyContent="space-between" gap={"$20"} p={"$4"} pt={'$0'}>
+                {/* Aqui você pode adicionar as seções de Dinheiro, Pix e Cartão, caso tenha dados específicos para cada forma de pagamento */}
             </HStack>
         </VStack>
     );
