@@ -31,6 +31,7 @@ export function Report() {
     const [showEndPicker, setShowEndPicker] = useState(false);
     const [salesData, setSalesData] = useState([]);
     const [total, setTotal] = useState(0);
+    const [paymentTotals, setPaymentTotals] = useState({ cash: "0.00", pix: "0.00", card: "0.00" });
 
     const onChangeStartDate = (event, selectedDate) => {
         const currentDate = selectedDate || startDate;
@@ -53,10 +54,10 @@ export function Report() {
             const localStartDate = getStartOfDay(startDate);
             const localEndDate = getEndOfDay(endDate);
 
-            const response = await axios.get('http://192.168.15.169:5000/vendas', {
+            const response = await axios.get('http://192.168.15.4:5000/vendas', {
                 params: {
-                    startDate: localStartDate.toISOString(), // Envia em UTC
-                    endDate: localEndDate.toISOString(),     // Envia em UTC
+                    startDate: localStartDate.toISOString(),
+                    endDate: localEndDate.toISOString(),
                 },
             });
 
@@ -72,12 +73,13 @@ export function Report() {
         const localEndDate = getEndOfDay(endDate);
 
         const filtered = data.filter(item => {
-            const itemDate = new Date(item.dateTime); // Data do item
+            const itemDate = new Date(item.dateTime);
             return itemDate >= localStartDate && itemDate <= localEndDate;
         });
 
         setSalesData(filtered);
-        calculateTotal(filtered);
+        calculateTotal(filtered); // Atualiza o total geral
+        calculatePaymentTotals(filtered); // Calcula os totais por forma de pagamento
     };
 
     // Função para calcular o total das vendas
@@ -88,6 +90,36 @@ export function Report() {
         }, 0);
 
         setTotal(totalAmount.toFixed(2));
+    };
+
+    // Função para calcular os totais por forma de pagamento
+    const calculatePaymentTotals = (data) => {
+        const totals = data.reduce(
+            (acc, item) => {
+                const amountPaid = item.amountPaid || 0;
+                switch (item.paymentType) {
+                    case "Dinheiro":
+                        acc.cash += amountPaid;
+                        break;
+                    case "Pix":
+                        acc.pix += amountPaid;
+                        break;
+                    case "Cartão":
+                        acc.card += amountPaid;
+                        break;
+                    default:
+                        break;
+                }
+                return acc;
+            },
+            { cash: 0, pix: 0, card: 0 }
+        );
+
+        setPaymentTotals({
+            cash: totals.cash.toFixed(2),
+            pix: totals.pix.toFixed(2),
+            card: totals.card.toFixed(2),
+        });
     };
 
     useEffect(() => {
@@ -141,16 +173,16 @@ export function Report() {
                     </HStack>
 
                     <FlatList
-    data={salesData}
-    keyExtractor={(item, index) => index.toString()}
-    renderItem={({ item }) => (
-        <LabelResumeReport
-            product={item.productName || item.product}
-            qtde={item.qtde}
-            amountPaid={`R$ ${item.amountPaid ? item.amountPaid.toFixed(2) : "0.00"}`}
-        />
-    )}
-/>
+                        data={salesData}
+                        keyExtractor={(item, index) => index.toString()}
+                        renderItem={({ item }) => (
+                            <LabelResumeReport
+                                product={item.productName || item.product}
+                                qtde={item.qtde}
+                                amountPaid={item.amountPaid ? item.amountPaid.toFixed(2) : "0.00"}
+                            />
+                        )}
+                    />
 
                     <HStack justifyContent="space-between" alignItems="flex-end" mt={"auto"} pt={"$2"} borderTopWidth={1}>
                         <Heading>Total</Heading>
@@ -159,32 +191,23 @@ export function Report() {
                 </VStack>
             </HStack>
 
-            <HStack  justifyContent="space-between" gap={"$20"} p={"$4"} pt={'$0'}>
+            <HStack justifyContent="space-between" gap={"$20"} p={"$4"} pt={'$0'}>
                 <View alignItems="center">
-                    <Heading color="white">
-                        Dinheiro
-                    </Heading>
-                        
+                    <Heading color="white">Dinheiro</Heading>
                     <View h={1} w={"100%"} bgColor="white" my={10} />
-                    <Text color="white">R$10</Text>
+                    <Text color="white">R${paymentTotals.cash}</Text>
                 </View>
 
                 <View alignItems="center">
-                    <Heading color="white">
-                        Pix
-                    </Heading>
-                        
+                    <Heading color="white">Pix</Heading>
                     <View h={1} w={"100%"} bgColor="white" my={10} />
-                    <Text color="white">R$10</Text>
+                    <Text color="white">R${paymentTotals.pix}</Text>
                 </View>
 
                 <View alignItems="center">
-                    <Heading color="white">
-                        Cartão
-                    </Heading>
-                        
+                    <Heading color="white">Cartão</Heading>
                     <View h={1} w={"100%"} bgColor="white" my={10} />
-                    <Text color="white">R$10</Text>
+                    <Text color="white">R${paymentTotals.card}</Text>
                 </View>
             </HStack>
         </VStack>
