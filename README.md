@@ -1,13 +1,13 @@
 ## Tecnologias utilizadas:
 
-React Native
-Expo
-Gluestack UI
-Typescript
-Node 
+- React Native
+- Expo
+- Gluestack UI
+- Typescript
+- Node 
 
-Projeto rodando no node 18
-  nvm use 18
+### Projeto rodando no node 18
+ * nvm use 18
 
 ## Ao clonar reposítório, para rodar:
 
