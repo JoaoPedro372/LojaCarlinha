@@ -1,4 +1,3 @@
-## O Loja Carlinha
 
 ## Tecnologias utilizadas:
 
