@@ -1,3 +1,8 @@
+## Ideia do projeto EasySell
+
+App de vendas, que possibilita listar os produtos, adiciona-los e ver o resumo em tempo real do total das vendas, assim como realizar a venda registrando valores, quantidades, quais produtos e forma de pagamento.
+
+Tendo também um relatório podendo ser filtrado por datas de vendas e valores em cada forma de pagamento, para ter um controle maior sobre as vendas e fechamentos.
 
 ## Tecnologias utilizadas:
 
