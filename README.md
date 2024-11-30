@@ -1,3 +1,8 @@
+## Nomes dos Participantes
+João Pedro França do Vale - 202202318231
+João Felipe Guimarães Juliá - 202203419201
+Pedro Henrique Alvino de Campos - 202202413933
+
 ## Ideia do projeto EasySell
 
 App de vendas, que possibilita listar os produtos, adiciona-los e ver o resumo em tempo real do total das vendas, assim como realizar a venda registrando valores, quantidades, quais produtos e forma de pagamento.
