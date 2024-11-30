@@ -20,6 +20,8 @@ Tendo também um relatório podendo ser filtrado por datas de vendas e valores e
 Iniciar rodando comando -> npm install
 Verificar dependências necessárias
 
+Depois rodar cd apiLoja em outro terminal e rodar um npm install
+
 ## Rodar o projeto:
    npx expo start
 
